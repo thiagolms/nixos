@@ -124,20 +124,20 @@
 	wpa_supplicant_gui
 	ghc
 	nodejs
-  gnome.gedit
-  xfce.thunar 
+ 	gnome.gedit
+ 	xfce.thunar 
 	xfce.xfce4-whiskermenu-plugin
 	xfce.xfce4-pulseaudio-plugin
-  xfce.xfwm4-themes
-  xfce.xfce4-windowck-plugin
-  xfce.xfce4-icon-theme
-  xfce.xfdashboard
-  xfce.xfce4-systemload-plugin
-  xfce.xfce4-panel
-  xfce.xfce4-dict
-  xfce.xfce4-fsguard-plugin
-  xfce.xfce4-genmon-plugin
-  xfce.xfce4-netload-plugin
+ 	xfce.xfwm4-themes
+  	xfce.xfce4-windowck-plugin
+  	xfce.xfce4-icon-theme
+  	xfce.xfdashboard
+  	xfce.xfce4-systemload-plugin
+  	xfce.xfce4-panel
+  	xfce.xfce4-dict
+  	xfce.xfce4-fsguard-plugin
+  	xfce.xfce4-genmon-plugin
+  	xfce.xfce4-netload-plugin
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];

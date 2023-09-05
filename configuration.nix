@@ -1,15 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   #garbage
   nix.gc = {
@@ -18,16 +19,25 @@
     options = "--delete-older-than 15d";
   };
 
+  # Docker
+  virtualisation.docker.enable = true;
+
+  # HD
+  fileSystems."/mnt/hd" = {
+    device = "/dev/disk/by-uuid/ec5c3663-9bab-4e65-8e1e-2174b8a3e179";
+    fsType = "ext4";
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+
   networking.wireless.userControlled.enable = true;
   networking.wireless.extraConfig = ''
-  openssl_ciphers=DEFAULT@SECLEVEL=0
+    openssl_ciphers=DEFAULT@SECLEVEL=0
   '';
 
   # Configure network proxy if necessary
@@ -78,6 +88,7 @@
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -98,10 +109,11 @@
   users.users.thiago = {
     isNormalUser = true;
     description = "thiago";
-    extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.nushell;
+    extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       firefox
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -111,35 +123,40 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-	git
-	vscode
-	notepadqq
-	dbeaver
-	arduino
-	btop
-	python311
-	neofetch
-	pulseaudio
-	wpa_supplicant
-	wpa_supplicant_gui
-	ghc
-	nodejs
- 	gnome.gedit
- 	xfce.thunar 
-	xfce.xfce4-whiskermenu-plugin
-	xfce.xfce4-pulseaudio-plugin
- 	xfce.xfwm4-themes
-  	xfce.xfce4-windowck-plugin
-  	xfce.xfce4-icon-theme
-  	xfce.xfdashboard
-  	xfce.xfce4-systemload-plugin
-  	xfce.xfce4-panel
-  	xfce.xfce4-dict
-  	xfce.xfce4-fsguard-plugin
-  	xfce.xfce4-genmon-plugin
-  	xfce.xfce4-netload-plugin
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    git
+    unstable.vscode
+    docker
+    notepadqq
+    dbeaver
+    arduino
+    btop
+    python311
+    neofetch
+    pulseaudio
+    wpa_supplicant
+    wpa_supplicant_gui
+    ghc
+    nodejs
+    gnome.gedit
+    libreoffice-qt
+    tmux
+    neovim
+    gcc
+    alejandra
+    xfce.thunar
+    xfce.xfce4-whiskermenu-plugin
+    xfce.xfce4-pulseaudio-plugin
+    xfce.xfwm4-themes
+    xfce.xfce4-windowck-plugin
+    xfce.xfce4-icon-theme
+    xfce.xfce4-systemload-plugin
+    xfce.xfce4-panel
+    xfce.xfce4-dict
+    xfce.xfce4-fsguard-plugin
+    xfce.xfce4-genmon-plugin
+    xfce.xfce4-netload-plugin
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -168,5 +185,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }

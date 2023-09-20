@@ -13,10 +13,7 @@
         config.allowUnfree = true;
       };
     };
-    pkg-unstable = import nixpkgs-unstable;
-    overlay-vscode = final: prev: {
-      vscode = pkg-unstable.vscode;
-    };
+    pkg-unstable = import nixpkgs-unstable;    
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

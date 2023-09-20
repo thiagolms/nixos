@@ -109,7 +109,7 @@
   users.users.thiago = {
     isNormalUser = true;
     description = "thiago";
-    shell = pkgs.nushell;
+    shell = pkgs.unstable.nushell;
     extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       firefox
@@ -143,6 +143,10 @@
     neovim
     gcc
     alejandra
+    alacritty
+    unstable.starship
+    zoxide
+    fzf
     xfce.thunar
     xfce.xfce4-whiskermenu-plugin
     xfce.xfce4-pulseaudio-plugin

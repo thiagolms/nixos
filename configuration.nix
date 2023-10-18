@@ -28,6 +28,10 @@
     fsType = "ext4";
   };
 
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -110,7 +114,7 @@
     isNormalUser = true;
     description = "thiago";
     shell = pkgs.unstable.nushell;
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "dialout"];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -128,7 +132,7 @@
     docker
     notepadqq
     dbeaver
-    arduino
+    unstable.arduino
     btop
     python311
     neofetch
@@ -138,15 +142,17 @@
     ghc
     nodejs
     gnome.gedit
-    libreoffice-qt
+    unstable.libreoffice-qt
     tmux
     neovim
     gcc
     alejandra
     alacritty
     unstable.starship
-    zoxide
-    fzf
+    unstable.zoxide
+    unstable.fzf
+    zip
+    obsidian
     xfce.thunar
     xfce.xfce4-whiskermenu-plugin
     xfce.xfce4-pulseaudio-plugin
